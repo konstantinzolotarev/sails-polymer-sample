@@ -1,0 +1,52 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+<dom-module id="app-message-box">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    paper-icon-button {
+      margin: 0 20px;
+    }
+  </style>
+
+  <template>
+    <div class="layout horizontal">
+      <paper-input class="flex" placeholder="Write your message" value="{{message}}" on-change="send"></paper-input>
+      <paper-icon-button icon="send" on-tap="send"></paper-icon-button>
+    </div>
+  </template>
+
+  <script>
+    (function () {
+      Polymer({
+        is: 'app-message-box',
+
+        properties: {
+          message: String
+        },
+
+        clearMessage: function () {
+          this.message = '';
+        },
+
+        send: function () {
+          var self = this;
+
+          io.socket.post('/message', {
+            message: this.message
+          }, function (data, resp) {
+            if (resp.statusCode == 201) {
+              self.clearMessage();
+            }
+          });
+        }
+      });
+    })();
+  </script>
+</dom-module>

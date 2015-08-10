@@ -1,0 +1,30 @@
+extends ./layout
+
+block polymer
+  link(rel="import", href="/polymer/app/elements.html")
+
+block body
+  template(is="dom-bind")#app
+    paper-drawer-panel
+      paper-scroll-header-pane(drawer='', fixed='')
+        paper-toolbar
+          span.paper-font-title Menu
+
+        paper-menu
+          paper-item(icon='menu') Test
+
+      paper-scroll-header-pane(main='', condenses='', keep-condensed-header='')
+        paper-toolbar
+          paper-icon-button(icon="menu", paper-drawer-toggle='')
+          span.flex
+
+          paper-icon-button(icon='refresh')
+          paper-icon-button(icon='search')
+
+          div.middle.middle-container.center.horizontal.layout
+            div.app-name Sails.js + Polymer Chat app
+        div.content.layout.vertical
+          div.flex.messages-area
+            app-chat-area
+          app-message-box
+

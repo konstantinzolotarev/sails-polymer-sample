@@ -1,0 +1,21 @@
+{
+  "name": "sails-polymer-sample",
+  "version": "0.0.0",
+  "authors": [
+    "Konstantin Zolotarev <konstantin.zolotarev@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/Polymer#^1.0.0",
+    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.1",
+    "page": "visionmedia/page.js#^1.6.3"
+  }
+}

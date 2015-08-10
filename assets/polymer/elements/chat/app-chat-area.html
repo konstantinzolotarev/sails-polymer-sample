@@ -1,0 +1,55 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+
+<dom-module id="app-chat-area">
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <paper-meterial>
+      <template is="dom-repeat" items="{{messages}}" id="list">
+        <chat-message message="[[item]]"></chat-message>
+      </template>
+    </paper-meterial>
+  </template>
+
+  <script>
+    (function () {
+      Polymer({
+        is: 'app-chat-area',
+
+        properties: {
+          messages: {
+            type: Array,
+            value: []
+          }
+        },
+
+        ready: function() {
+          var self = this;
+          io.socket.get('/message?sort=id%20desc&limit=10', function(data, result) {
+            self.messages = data;
+            //@todo Fix order of this messages
+          });
+          io.socket.on('message', this.onMessageReceive.bind(this));
+        },
+
+        scrollBottom: function() {
+          //@todo Implement
+        },
+
+        onMessageReceive: function(mesage) {
+          if (mesage.verb == 'created') {
+            this.push('messages', mesage.data);
+            this.scrollBottom();
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>
